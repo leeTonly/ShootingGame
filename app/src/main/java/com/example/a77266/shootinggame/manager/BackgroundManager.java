@@ -9,9 +9,13 @@ import android.view.View;
 
 import com.example.a77266.shootinggame.R;
 
+import java.util.Locale;
+
 /**
  * Created by LinLiQiang on 2016-8-11 19:29.
  * Email : 772662623@qq.com
+ * Function: 此类主要实现了背景的持续移动效果，在主UI线程中定时绘制，
+ *          会有player向前飞的效果。
  */
 public class BackgroundManager {
 
@@ -30,7 +34,6 @@ public class BackgroundManager {
     private int iBitmapX = 0;
     private int iBitmapY = 0;
 
-
     public BackgroundManager(View view) {
         iWinX = view.getWidth();
         iWinY = view.getHeight();
@@ -46,7 +49,7 @@ public class BackgroundManager {
         dy = 0;
         dy2 = iStartY2;
 
-        System.out.println(String.format("iBitmapX=%d,iBitmapY=%d,iStartY1=%d,iStartY2=%d",iBitmapX,iBitmapY,iStartY1,iStartY2));
+        System.out.println(String.format(Locale.CHINA,"iBitmapX=%d,iBitmapY=%d,iStartY1=%d,iStartY2=%d",iBitmapX,iBitmapY,iStartY1,iStartY2));
 
         srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
         destRect = new Rect(0, iStartY1, iWinX, iWinY);
@@ -64,11 +67,11 @@ public class BackgroundManager {
 
         if(dy >= iBitmapY) {
             dy = -iBitmapY;
-            System.out.println(String.format("(0, %d, %d, %d)", iStartY1 -iBitmapY*iWinX/iBitmapX, iWinX, iWinY-iBitmapY*iWinX/iBitmapX));
+            System.out.println(String.format(Locale.CHINA,"(0, %d, %d, %d)", iStartY1 -iBitmapY*iWinX/iBitmapX, iWinX, iWinY-iBitmapY*iWinX/iBitmapX));
         }
         if(dy2 >= iWinY) {
             dy2 = iStartY2;
-            System.out.println(String.format("(0, %d, %d, %d)", iStartY1 -iBitmapY*iWinX/iBitmapX, iWinX, iStartY1));
+            System.out.println(String.format(Locale.CHINA,"(0, %d, %d, %d)", iStartY1 -iBitmapY*iWinX/iBitmapX, iWinX, iStartY1));
         }
     }
 }

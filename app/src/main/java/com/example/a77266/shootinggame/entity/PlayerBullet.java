@@ -11,6 +11,7 @@ import com.example.a77266.shootinggame.R;
 /**
  * Created by LinLiQiang on 2016-8-13 15:32.
  * Email : 772662623@qq.com
+ * Function: player子弹类
  */
 public class PlayerBullet {
 
@@ -20,6 +21,7 @@ public class PlayerBullet {
     private int y = 0;
     private int x = 0;
 
+    /*当前子弹是否需要绘制的flag*/
     private boolean bDrawOrNot = false;
 
     public PlayerBullet(View view) {
@@ -27,6 +29,7 @@ public class PlayerBullet {
                 R.drawable.bullet1);
     }
 
+    /*设置当前子弹的初始位置*/
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
@@ -36,6 +39,7 @@ public class PlayerBullet {
         canvas.drawBitmap(bullet, x, y, null);
     }
 
+    /*每次绘制前需要将子弹的坐标移动后再进行绘制*/
     public void move() {
         y -= 10;
 

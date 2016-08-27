@@ -10,10 +10,11 @@ import java.util.ArrayList;
 /**
  * Created by LinLiQiang on 2016-8-13 13:32.
  * Email : 772662623@qq.com
+ * Function: 定义所有敌机，并提供绘制所有敌机的外部方法
  */
 public class EnemyManager {
 
-    ArrayList<Enemy> enemys = new ArrayList<Enemy>();
+    ArrayList<Enemy> enemys = new ArrayList<>();
     private int j = 0;
 
     public EnemyManager(View view) {

@@ -18,35 +18,39 @@ import java.util.Random;
 /**
  * Created by LinLiQiang on 2016-8-12 20:40.
  * Email : 772662623@qq.com
+ * Function: 敌机类
  */
 public class Enemy {
+    /*敌机图片*/
     private Bitmap enemy = null;
+
+    /*敌机坐标*/
     private int x = 0;
     private int y = 0;
 
+    /*敌机移动速度*/
     private int dx = 0;
     private int dy = 0;
 
     private int i = 0;
 
-    private MediaPlayer mediaPlayer = null;
+    /*爆炸效果声音*/
+    //private MediaPlayer mediaPlayer = null;
 
+    /*敌机是否已阵亡*/
     private boolean ifDied = false;
 
+    /*窗体宽高*/
     private int iWinWidth = 0;
     private int iWinHeight = 0;
 
+    /*决定敌机向左飞还是向右飞*/
     private boolean bisRight = true;
 
     public Enemy(View view) {
         i = 0;
 
-        mediaPlayer = MediaPlayer.create(view.getContext(), R.raw.explosion);
-//        try {
-//            mediaPlayer.prepare();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        //mediaPlayer = MediaPlayer.create(view.getContext(), R.raw.explosion);
 
         x = new Random().nextInt(view.getWidth());
         y = new Random().nextInt(50) - 100;
@@ -87,6 +91,7 @@ public class Enemy {
 
         y += dy;
 
+        /*如果敌机被打中，或者飞窗口，则重新从头飞*/
         if(this.ifDied || x < -enemy.getWidth() || x > iWinWidth || y > iWinHeight) {
             x = new Random().nextInt(iWinWidth);
             y = new Random().nextInt(50) - 100;
@@ -94,6 +99,7 @@ public class Enemy {
         }
     }
 
+    /*隔一段时间获取一个敌机子弹实例，设置初始位置和速度，然后敌机子弹Manager就可以绘制它了。*/
     public void fire() {
         if(i < 10) {
             i++;
@@ -114,6 +120,7 @@ public class Enemy {
         return ifDied;
     }
 
+    /*敌机和player子弹的碰撞检测*/
     public void enemyBoomCheck() {
         for(PlayerBullet playerBullet : PlayerBulletManager.getAllPlayerBullets()) {
             if(!this.ifDied
@@ -122,12 +129,14 @@ public class Enemy {
                         x+enemy.getWidth(), y+enemy.getHeight(),
                         playerBullet.getX(), playerBullet.getY(),
                         playerBullet.getX()+playerBullet.getBulletWidth(), playerBullet.getY()+playerBullet.getBulletHeight())) {
-                mediaPlayer.start();
+                //mediaPlayer.start();
                 this.ifDied = true;
                 playerBullet.setbDrawOrNot(false);
                 Explodtion explodtion = ExplodtionManager.getOneExplodtion();
-                explodtion.setPosition(x,y);
-                explodtion.setBifExploded(true);
+                if(explodtion != null) {
+                    explodtion.setPosition(x,y);
+                    explodtion.setBifExploded(true);
+                }
                 //break;
             }
 

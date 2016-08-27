@@ -12,13 +12,17 @@ import java.util.ArrayList;
 /**
  * Created by LinLiQiang on 2016-8-25 21:41.
  * Email : 772662623@qq.com
+ * Function: 将爆炸效果做为一个类
  */
 public class Explodtion {
-
+    /*爆炸效果图片*/
     Bitmap explode = null;
+
+    /*爆炸效果图片的坐标*/
     int x = 0;
     int y = 0;
 
+    /*判断当前Explode是否需要绘制的flag*/
     private boolean bifExploded = false;
 
     public Explodtion(View view) {
@@ -27,6 +31,7 @@ public class Explodtion {
                 R.drawable.explored);
     }
 
+    /*提供给外部设置Explode初始位置*/
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;

@@ -20,6 +20,7 @@ import com.example.a77266.shootinggame.manager.PlayerManager;
 /**
  * Created by LinLiQiang on 2016-8-11 19:00.
  * Email : 772662623@qq.com
+ * Function: 此类主要用于总的图像绘制。
  */
 public class GameView extends SurfaceView implements SurfaceHolder.Callback, Runnable{
 
@@ -29,6 +30,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
     private SurfaceHolder sh = null;
     private boolean bisRunning = true;
 
+    /*声明所需管理类*/
     private BackgroundManager backgroundManager = null;
     private PlayerManager playerManager = null;
     private EnemyManager enemyManager = null;
@@ -36,9 +38,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
     private EnemyBulletManager enemyBulletManager = null;
     private ExplodtionManager explodtionManager = null;
 
+    /*构造器*/
     public GameView(Context context) {
         super(context);
         this.setFocusable(true);
+        /*获取surfaceHolder实例，并设置回调*/
         sh = this.getHolder();
         sh.addCallback(this);
     }
@@ -58,7 +62,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if(canvas != null) {
+            if(canvas != null && sh != null) {
                 sh.unlockCanvasAndPost(canvas);
             }
         }
@@ -67,6 +71,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         Log.d(TAG, "surfaceCreated");
+
+        /*surface创建的同时实例化所需管理类，并且启动当前类实现的线程*/
         backgroundManager = new BackgroundManager(this);
         playerManager = new PlayerManager(this);
         enemyManager = new EnemyManager(this);
@@ -102,6 +108,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        /*监测是否按下返回键，如果有则停止线程*/
         if(keyCode == KeyEvent.KEYCODE_BACK)
             bisRunning = false;
         return super.onKeyDown(keyCode, event);
@@ -109,6 +116,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        /*当触摸屏幕时，将触摸的位置传于playerManager，用于绘制player*/
         playerManager.moveTo((int)event.getX(), (int)event.getY());
         return super.onTouchEvent(event);
     }
